@@ -68,100 +68,74 @@ async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
                        patient_id:Annotated[str,Form(...)]
                        ):
 
-    # Process the file path
-    # Your logic here
-    # form = await request.form()
-    # file_field = form["image"]
-    # file_path = file_request.file_path
     contents = await image.read()
 
     encoded_img=base64.b64encode(contents).decode('utf-8')
-    
-    
-    img = Image.open(io.BytesIO(contents))
-    img = img.resize((150, 150))
-    img = np.array(img) / 255.0
-    img = np.expand_dims(img, axis=0)
-
-    bucket_name = "monika1"
    
     # Create a client instance
 
     # Retrieve the bucket
-    bucket1 = storage_client .get_bucket(bucket_name)
+    if image_type == 'X-ray':
+        bucket_name = 'monika-raw'
+        folder_name = 'X-ray/'
+    else:
+        bucket_name = 'monika-raw'
+        folder_name = 'CT-scan/'
+    bucket = storage_client.get_bucket(bucket_name)
 
-    # Retrieve the blob
-    pred=[]
-
-    # dob = patient_dob
-    # dob1= patient_dob.replace("-", "")
-    # patient_id=patient_name+dob1
     date_test=datetime.now()
     date_of_test = date_test.date()
     filename = image.filename
-    bucket = storage_client.get_bucket('lung_abn')
-    blob = bucket.blob(f"Lung_Images/{filename}")
-    image_path = f'https://storage.cloud.google.com/lung_abn/Lung_Images/{filename}'
+    blob = bucket.blob(f"{folder_name}/{filename}")
+    
+    image_path = f'https://storage.cloud.google.com/{bucket_name}/{folder_name}/{filename}'
+    
     image.file.seek(0)
     blob.upload_from_file(image.file, content_type=image.content_type)
     image.close()
+    pneumonia_prob = 'NULL'
+    tuberculosis_prob = 'NULL'
+    cancer_prob = 'NULL'
+    covid19_prob = 'NULL'
+    query =  f"""
+    INSERT INTO `{project_id}.ImageData.ImageDataTable` (
+        img_file, img_type, patient_id, patient_name, patient_dob, patient_gender,
+        patient_email,patient_phno, date_of_test,
+        pneumonia_prob, tuberculosis_prob, cancer_prob, covid19_prob
+    )
+    VALUES (
+        '{image_path}', '{image_type}', '{patient_id}', '{patient_name}',
+        DATE('{patient_dob}'), '{Gender}', '{patient_email}', '{patient_mobile}',
+        DATE('{date_of_test}'),
+        {pneumonia_prob}, {tuberculosis_prob}, {cancer_prob}, {covid19_prob}
+    )
+    """
+    job = bigquery_client.query(query)
+    job.result()
+    date_test=datetime.now()
+    date_of_test = date_test.date()
+    print(date_of_test)
+    query = f"""
+        SELECT pneumonia_prob, tuberculosis_prob, cancer_prob, covid19_prob
+        FROM `{project_id}.ImageData.ImageDataTable`
+        WHERE patient_id = '{patient_id}'
+    """
+
+    query_job = bigquery_client.query(query)
+    results = query_job.result()
     
-    if(image_type=='X-ray'):
-            models = ["covid_sequential (1).h5","pnuemonia_sequential1.h5","tuberculosis_functional.h5"]
-            for model_file in models:
-                blob = bucket1.blob(model_file)
-                blob.download_to_filename(model_file)
-                model = tf.keras.models.load_model(model_file)
-                predictions = model.predict(img)
-                pred.append(predictions)
-                os.remove(model_file)
-            
-            pred1 = round(pred[0][0][1]*100,2)
-            pred2 = round(pred[1][0][0]*100,2)
-            pred4 = round(pred[2][0][0]*100,2)
-            pred3=0.0
-  
-
-            
-            query = f"""
-            INSERT INTO `{project_id}.ImageData.ImageDataTable`
-            VALUES ('{image_path}', '{image_type}', '{patient_id}', '{patient_name}', 
-                    DATE('{patient_dob}'), '{Gender}', '{patient_email}','{patient_mobile}',
-                    {pred1}, {pred2}, {pred3}, {pred4}, DATE('{date_of_test}'))
-            """
-            job = bigquery_client.query(query)
-            job.result()
-            print(date_of_test)
-            
-
-            return templates.TemplateResponse("base.html", {"request": request,  "result1":pred1, "result2":pred2,"result3":pred3, "result4":pred4, "img1":encoded_img, "patient_name":patient_name,"patient_dob":patient_dob,"patient_email":patient_email,"Gender":Gender,"Uploaded_image":image_type,"date":str(date_of_test)})
-     
-    else:
-        models = ["cancer_sequential.h5"]
-        for model_file in models:
-                blob = bucket1.blob(model_file)
-                blob.download_to_filename(model_file)
-                model = tf.keras.models.load_model(model_file)
-                pred4 = model.predict(img)
-                os.remove(model_file)
-
-                pred1 = 0.0
-                pred2 = 0.0
-                pred3 = round(pred[0][0][0]*100,2)
-                pred4 = 0.0
-
-
-        query = f"""
-            INSERT INTO `{project_id}.ImageData.ImageDataTable`
-            VALUES ('{image_path}', '{image_Type}', '{patient_id}', '{patient_name}', 
-                    DATE('{dob}'), '{Gender}', '{patient_email}', 
-                    {pred1}, {pred2}, {pred3}, {pred4})
-            """
-        job = bigquery_client.query(query)
-        job.result()     
-
-        return templates.TemplateResponse("base.html", {"request": request, "result1":pred1,"result2":pred2,"result3":pred3,"result4":pred4, "img":image_path, "patient_name":patient_name,"patient_dob":patient_dob,"patient_email":patient_email,"Gender":Gender,"Uploaded_image":image_type})
-
+    # Assign column values to variables
+    for row in results:
+        pred1 = row['pneumonia_prob']
+        pred2 = row['tuberculosis_prob']
+        pred3 = row['cancer_prob']
+        pred4 = row['covid19_prob']
+        print(pred1,pred2,pred3,pred4)
+        return templates.TemplateResponse("base.html", {"request": request, "result1": pred1, "result2": pred2,
+                                                     "result3": pred3, "result4": pred4, "img": image_path, "img1":encoded_img,
+                                                     "patient_name": patient_name, "patient_dob": patient_dob,
+                                                     "patient_email": patient_email, "Gender": Gender,
+                                                     "Uploaded_image": image_type,"date":str(date_of_test)})
 
 
 @app.post("/ImageData/")
@@ -173,7 +147,7 @@ async def create_image_data(item: ImageData):
             {item.pneumonia_prob}, {item.tuberculosis_prob}, {item.cancer_prob}, {item.covid19_prob})
     """
     job = bigquery_client.query(query)
-    job.result()  # Wait for the query to complete
+     # Wait for the query to complete
 
     return {"message": "Data inserted successfully"}
 
