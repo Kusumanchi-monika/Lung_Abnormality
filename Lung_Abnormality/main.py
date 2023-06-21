@@ -8,7 +8,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from typing import Annotated
 from datetime import date, datetime
-
+import asyncio
 import tensorflow as tf
 from tensorflow import keras
 import io
@@ -76,29 +76,31 @@ async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
 
     # Retrieve the bucket
     if image_type == 'X-ray':
-        bucket_name = 'monika-raw'
+        bucket_name = 'lung_abn_raw'
         folder_name = 'X-ray/'
     else:
-        bucket_name = 'monika-raw'
+        bucket_name = 'lung_abn_raw'
         folder_name = 'CT-scan/'
     bucket = storage_client.get_bucket(bucket_name)
-
+    
     date_test=datetime.now()
     date_of_test = date_test.date()
-    filename = image.filename
+    
+    filename = f"{patient_id}"
+    #blob.upload_from_file(image.file, content_type=image.content_type)
     blob = bucket.blob(f"{folder_name}/{filename}")
     
-    image_path = f'https://storage.cloud.google.com/{bucket_name}/{folder_name}/{filename}'
+    image_path = f'https://storage.googleapis.com/{bucket_name}/{folder_name}/{filename}'
     
     image.file.seek(0)
     blob.upload_from_file(image.file, content_type=image.content_type)
     image.close()
-    pneumonia_prob = 'NULL'
-    tuberculosis_prob = 'NULL'
-    cancer_prob = 'NULL'
-    covid19_prob = 'NULL'
+    pneumonia_prob = 0.0
+    tuberculosis_prob = 0.0
+    cancer_prob = 0.0
+    covid19_prob = 0.0
     query =  f"""
-    INSERT INTO `{project_id}.ImageData.ImageDataTable` (
+    INSERT INTO `{project_id}.ImageData2.ImageDataTable` (
         img_file, img_type, patient_id, patient_name, patient_dob, patient_gender,
         patient_email,patient_phno, date_of_test,
         pneumonia_prob, tuberculosis_prob, cancer_prob, covid19_prob
@@ -117,7 +119,7 @@ async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
     print(date_of_test)
     query = f"""
         SELECT pneumonia_prob, tuberculosis_prob, cancer_prob, covid19_prob
-        FROM `{project_id}.ImageData.ImageDataTable`
+        FROM `{project_id}.ImageData2.ImageDataTable`
         WHERE patient_id = '{patient_id}'
     """
 
@@ -131,8 +133,10 @@ async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
         pred3 = row['cancer_prob']
         pred4 = row['covid19_prob']
         print(pred1,pred2,pred3,pred4)
-        return templates.TemplateResponse("base.html", {"request": request, "result1": pred1, "result2": pred2,
-                                                     "result3": pred3, "result4": pred4, "img": image_path, "img1":encoded_img,
+
+    await asyncio.sleep(60)
+    return templates.TemplateResponse("base.html", {"request": request, "result1": pred1, "result2": pred2,
+                                                     "result3": pred3, "result4": pred4, "img1":encoded_img,
                                                      "patient_name": patient_name, "patient_dob": patient_dob,
                                                      "patient_email": patient_email, "Gender": Gender,
                                                      "Uploaded_image": image_type,"date":str(date_of_test)})
@@ -141,7 +145,7 @@ async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
 @app.post("/ImageData/")
 async def create_image_data(item: ImageData):
     query = f"""
-    INSERT INTO `{project_id}.ImageData.ImageDataTable`
+    INSERT INTO `{project_id}.ImageData2.ImageDataTable`
     VALUES ('{item.img_file}', '{item.img_type}', '{item.patient_id}', '{item.patient_name}', 
             DATE('{item.patient_dob}'), '{item.patient_gender}', '{item.patient_email}', 
             {item.pneumonia_prob}, {item.tuberculosis_prob}, {item.cancer_prob}, {item.covid19_prob})
@@ -155,7 +159,7 @@ async def create_image_data(item: ImageData):
 @app.get("/ImageDatas",response_class=HTMLResponse)
 async def get_image_data():
    query = f"""
-         SELECT  * FROM {project_id}.ImageData.ImageDataTable;
+         SELECT  * FROM {project_id}.ImageData2.ImageDataTable;
    """
    df = bigquery_client.query(query).to_dataframe()
    # df.head()
@@ -165,7 +169,7 @@ async def get_image_data():
 @app.get("/ImageData/{id}",response_class=HTMLResponse)
 async def get_image_data(id):
    query = f"""
-         SELECT  * FROM {project_id}.ImageData.ImageDataTable
+         SELECT  * FROM {project_id}.ImageData2.ImageDataTable
          WHERE patient_id = '{id}';
    """
    df = bigquery_client.query(query).to_dataframe()
@@ -175,22 +179,27 @@ async def get_image_data(id):
 @app.post("/getdata")
 async def get_data(request: Request,patient_id:Annotated[str,Form(...)]):
    query = f"""
-         SELECT  * FROM {project_id}.ImageData.ImageDataTable
+         SELECT  * FROM {project_id}.ImageData2.ImageDataTable
          WHERE patient_id ='{patient_id}';
    """
    df = bigquery_client.query(query).to_dataframe()
    print(df.head())
    image_path=df.iloc[0]['img_file']
-   pred1=df.iloc[0]['pneumonia_prob']
-   pred2=df.iloc[0]['tuberculosis_prob']
-   pred4=df.iloc[0]['covid19_prob']
-   pred3=df.iloc[0]['cancer_prob']
+   predi1=df.iloc[0]['pneumonia_prob']
+   predi2=df.iloc[0]['tuberculosis_prob']
+   predi4=df.iloc[0]['covid19_prob']
+   predi3=df.iloc[0]['cancer_prob']
    patient_name=df.iloc[0]['patient_name']
    patient_email=df.iloc[0]['patient_email']
    patient_dob=df.iloc[0]['patient_dob']
    Gender=df.iloc[0]['patient_gender']
    image_type=df.iloc[0]['img_type']
    date_of_test=df.iloc[0]['date_of_test']
+   pred1=round(predi1*100,2)
+   pred2=round(predi2*100,2)
+   pred3=round(predi3*100,2)
+   pred4=round(predi4*100,2)
+
  
 
    return templates.TemplateResponse("base.html", {"request": request, "result1":pred1,"result2":pred2,"result3":pred3, "result4":pred4, "img":image_path, "patient_name":patient_name,"patient_dob":patient_dob,"patient_email":patient_email,"Gender":Gender,"Uploaded_image":image_type,"date":date_of_test})
