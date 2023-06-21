@@ -88,75 +88,78 @@
       height: 100%;
     }
 
-  .card3 {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  width:75.5%;
-  size: 20px;
-  word-wrap: break-word;
-  border-radius: 0.25rem;
-  margin-left:40px;
-}
-.card-body6{
-          flex: 1 1 auto;
-          position: center;
-          text-align: center;
-          color: azure;
-          text-shadow: 0 1px 2px rgb(255, 247, 247);
-          background-color: rgb(51, 173, 235);
-          font-size :30px;
-        }
+    .card3 {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      width: 75.5%;
+      size: 20px;
+      word-wrap: break-word;
+      border-radius: 0.25rem;
+      margin-left: 40px;
+    }
+
+    .card-body6 {
+      flex: 1 1 auto;
+      position: center;
+      text-align: center;
+      color: azure;
+      text-shadow: 0 1px 2px rgb(255, 247, 247);
+      background-color: rgb(51, 173, 235);
+      font-size: 30px;
+    }
+
     .card4 {
-  /* position: relative; */
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  width:90%;
-  size: 20px;
-  word-wrap: break-word;
-  border-radius: 0.25rem;
-}
+      /* position: relative; */
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      width: 90%;
+      size: 20px;
+      word-wrap: break-word;
+      border-radius: 0.25rem;
+    }
+
     .card5 {
-  /* position: relative; */
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  width:79%;
-  size: 20px;
-  word-wrap: break-word;
-  border-radius: 0.25rem;
-}
-.card-body7{
-          flex: 1 1 auto;
-          /* position: center; */
-          text-align: left;
-          color: rgb(13, 14, 14);
-          text-shadow: 0 1px 2px rgb(120, 114, 114);
-          background-color: rgb(224, 240, 249);
-          font-size :20px;
-          padding: 0.5rem 0.5rem;
-        }
+      /* position: relative; */
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      width: 79%;
+      size: 20px;
+      word-wrap: break-word;
+      border-radius: 0.25rem;
+    }
 
-        .card-body8{
-          flex: 1 1 auto;
-          /* position: center; */
-          text-align: left;
-          color: rgb(13, 14, 14);
-          text-shadow: 0 1px 2px rgb(120, 114, 114);
-          background-color: rgb(224, 240, 249);
-          font-size :15px;
-          padding: 0.5rem 0.5rem;
-          font-weight: 400;
-          
-        }
+    .card-body7 {
+      flex: 1 1 auto;
+      /* position: center; */
+      text-align: left;
+      color: rgb(13, 14, 14);
+      text-shadow: 0 1px 2px rgb(120, 114, 114);
+      background-color: rgb(224, 240, 249);
+      font-size: 20px;
+      padding: 0.5rem 0.5rem;
+    }
 
-#Analysis
-{
-  padding-left: 200px;
-  padding-right: 0px;
-}
+    .card-body8 {
+      flex: 1 1 auto;
+      /* position: center; */
+      text-align: left;
+      color: rgb(13, 14, 14);
+      text-shadow: 0 1px 2px rgb(120, 114, 114);
+      background-color: rgb(224, 240, 249);
+      font-size: 15px;
+      padding: 0.5rem 0.5rem;
+      font-weight: 400;
+
+    }
+
+    #Analysis {
+      padding-left: 200px;
+      padding-right: 0px;
+    }
   </style>
 </head>
 
@@ -210,15 +213,15 @@
             <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
             <div class="row">
               <div class="col-md-4">
-            
-                  <select class="form-control" name="patient_id" id="patient_id" required>
-                    <option value="123456789012">123456789012</option>
-                    <option value="098765432109">098765432109</option>
-                    <option value="245678901231">245678901231</option>
-                    <option value="102938475610">245678901231</option>
-                    <option value="342567819042">245678901231</option>
-                    	
-                  </select>
+
+                <select class="form-control" name="patient_id" id="patient_id" required>
+                  <option value="123456789012">123456789012</option>
+                  <option value="098765432109">098765432109</option>
+                  <option value="245678901231">245678901231</option>
+                  <option value="102938475610">245678901231</option>
+                  <option value="342567819042">245678901231</option>
+
+                </select>
                 <!-- <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="patient_id"
                   placeholder="Patient Id"> -->
@@ -281,59 +284,59 @@
           <br>
           <div class="form-group">
 
-          <div class="row">
-            <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-4">
                 <label for="phone">Mobile No:</label>
                 <input type="text" id="mobile" name="patient_mobile" placeholder="Enter Mobile Number" required>
               </div>
-         
-          <br>  
-            
-          <div class="col-md-4">
-            <label for="dob">Date of Birth</label>
-            <input type="text" id="dob-input" name="patient_dob" placeholder="Select Date of Birth" required>
-          </div>
 
-          <div class="col-md-4">
-            <label for="aadhar">Aadhar Number:</label>
-            <input type="text" id="aadhar" name="patient_id" placeholder="Enter Aadhar Number" required>
-          </div>
-        </div>
-          <br>
+              <br>
 
-          <div class="form-group">
-            <label for="gender">Gender</label>
-            <select class="form-control" name="Gender" id="gender" required>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          
-          <br>
-          <div class="form-group">
-            <label for="Image_type">Image Type</label>
-            <select class="form-control" name="image_type" id="image_type" required>
-              <option value="X-ray">X-ray</option>
-              <option value="CT">CT Scan</option>
-            </select>
-          </div>
-          
-          <!-- <div class="form-group">
+              <div class="col-md-4">
+                <label for="dob">Date of Birth</label>
+                <input type="text" id="dob-input" name="patient_dob" placeholder="Select Date of Birth" required>
+              </div>
+
+              <div class="col-md-4">
+                <label for="aadhar">Aadhar Number:</label>
+                <input type="text" id="aadhar" name="patient_id" placeholder="Enter Aadhar Number" required>
+              </div>
+            </div>
+            <br>
+
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select class="form-control" name="Gender" id="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <br>
+            <div class="form-group">
+              <label for="Image_type">Image Type</label>
+              <select class="form-control" name="image_type" id="image_type" required>
+                <option value="X-ray">X-ray</option>
+                <option value="CT">CT Scan</option>
+              </select>
+            </div>
+
+            <!-- <div class="form-group">
                 <label for="address">Address</label>
                 <textarea class="form-control" id="address" rows="3"  name="patient_Address" placeholder="Enter patient address"></textarea>
               </div> -->
 
-          <br>    
-          <div class="form-group">
-            <label for="xray">X-ray Image (Drag and drop here)</label>
-            <div class="image-preview" id="imagePreview">
-              <img src="" alt="Image Preview">
-          </div>
-            <input type="file" class="form-control-file" id="xray" name="image" accept="image/*"
-              onchange="previewImage(event)" required>
-          </div>
-          <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
+            <br>
+            <div class="form-group">
+              <label for="xray">X-ray Image (Drag and drop here)</label>
+              <div class="image-preview" id="imagePreview">
+                <img src="" alt="Image Preview">
+              </div>
+              <input type="file" class="form-control-file" id="xray" name="image" accept="image/*"
+                onchange="previewImage(event)" required>
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
         </form>
       </div>
 
@@ -384,48 +387,49 @@
   {% if img1 or img %}
   <section id="Analysis">
 
-  <div class="row" >
-  <div class="card3" >
-    <div class="card-body6" >Name: {{patient_name}}</div>
+    <div class="row">
+      <div class="card3">
+        <div class="card-body6">Name: {{patient_name}}</div>
+      </div>
     </div>
-  </div>
-  <br>
+    <br>
     <div class="row">
       <div class="col-md-5">
-       
+
         <div class="image-box">
           {% if img %}
-          <img src="{{ img }}" >
+          <img src="{{ img }}">
           {% else %}
           <img src="data:image/{{ image_format }};base64,{{ img1 }}">
           {% endif %}
         </div>
       </div>
       <div class="col-md-5">
-          <div class="row" >
-            <div class="card4" >
-              <div class="card-body7" >DOB: {{patient_dob}}</div>
-              </div>
-            </div>
-            <br>
+        <div class="row">
+          <div class="card4">
+            
+            <div class="card-body7"><b>Age:</b> <span id="age"></span></div>
+          </div>
+        </div>
+        <br>
 
-            <div class="row" >
-              <div class="card4" >
-                <div class="card-body7" >Gender: {{Gender}}</div>
-                </div>
-              </div>
-              <br>
+        <div class="row">
+          <div class="card4">
+            <div class="card-body7"><b>Gender: </b>{{Gender}}</div>
+          </div>
+        </div>
+        <br>
 
-              <div class="row" >
-                <div class="card4" >
-                  <div class="card-body7">Date of Test :{{ date }}</div>
-                  </div>
-                </div>
-              <br>
-                <div class="row" >
-                  <div class="col-md-6">
-                  <div class="card5" >
-                    <div class="card-body8" style="background-color:{% if result1 >50 %}
+        <div class="row">
+          <div class="card4">
+            <div class="card-body7"><b>Date of Test:</b> {{ date }}</div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card5">
+              <div class="card-body8" style="background-color:{% if result1 >50 %}
                       #f55d6c;color: white
                     {% elif result1 <20 %}
                     #85ed79;
@@ -433,14 +437,14 @@
                     #f9fc90;
                     {% endif %}
                   ">
-                    Pneumonia: {{result1}} %
-                  </div>
-                    </div>
-                  </div>
+                Pneumonia: {{result1}} %
+              </div>
+            </div>
+          </div>
 
-                  <div class="col-md-6">
-                    <div class="card5" >
-                      <div class="card-body8" style="background-color:
+          <div class="col-md-6">
+            <div class="card5">
+              <div class="card-body8" style="background-color:
                       {% if result2 > 50 %}
                       #f55d6c;color: white
                       {% elif result2 < 20 %}
@@ -449,19 +453,19 @@
                       #f9fc90;
                       {% endif %}
                     ">
-                      Tuberculosis: {{result2}} %
-                    </div>
-                      </div>
-                    </div>
-                </div>
+                Tuberculosis: {{result2}} %
+              </div>
+            </div>
+          </div>
+        </div>
 
 
-                <br>
+        <br>
 
-                <div class="row" >
-                  <div class="col-md-6">
-                  <div class="card5" >
-                    <div class="card-body8" style="background-color:{% if result3 >50 %}
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card5">
+              <div class="card-body8" style="background-color:{% if result3 >50 %}
                       #f55d6c;color: white
                     {% elif result3 <20 %}
                     #85ed79;
@@ -469,14 +473,14 @@
                     #f9fc90;
                     {% endif %}
                   ">
-                    Cancer: {{result3}} %
-                  </div>
-                    </div>
-                  </div>
+                Cancer: {{result3}} %
+              </div>
+            </div>
+          </div>
 
-                  <div class="col-md-6">
-                    <div class="card5" >
-                      <div class="card-body8" style="background-color:
+          <div class="col-md-6">
+            <div class="card5">
+              <div class="card-body8" style="background-color:
                       {% if result4 > 50 %}
                       #f55d6c;color: white
                       {% elif result4 < 20 %}
@@ -485,14 +489,14 @@
                       #f9fc90;
                       {% endif %}
                     ">
-                      Covid19 : {{result4}} %
-                    </div>
-                      </div>
-                    </div>
-                </div>
-              
+                Covid19 : {{result4}} %
+              </div>
+            </div>
+          </div>
+        </div>
 
-    
+
+
   </section>
 
   <script>
@@ -501,6 +505,21 @@
       var table = document.getElementById("patientTable");
       table.style.display = "none";
     }
+
+    function calculateAge(dob) {
+      var today = new Date();
+      var birthDate = new Date(dob);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    }
+    var dob = '{{patient_dob}}';  // Replace with the actual DOB variable value
+    var ageElement = document.getElementById("age");
+    ageElement.innerText = calculateAge(dob);
+
   </script>
 
   <section id="information-section">
