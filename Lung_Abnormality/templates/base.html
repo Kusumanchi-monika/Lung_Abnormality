@@ -98,6 +98,9 @@
       word-wrap: break-word;
       border-radius: 0.25rem;
       margin-left: 40px;
+      padding-top: 20px;
+      padding-bottom: 15px;
+      ;
     }
 
     .card-body6 {
@@ -159,6 +162,15 @@
     #Analysis {
       padding-left: 200px;
       padding-right: 0px;
+      padding-top: 0px;
+    }
+
+    .dropdrown {
+      padding-bottom: 40px;
+      padding-left: 40px;
+
+
+
     }
   </style>
 </head>
@@ -178,11 +190,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto" style="float:right">
             <li class="nav-item">
-              <a class="nav-link active" href="#">ABOUT US</a>
+              <a class="nav-link active" href="#form-inline">PATIENTS</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link disabled active" href="#" tabindex="-1" aria-disabled="true">FAQ'S</a>
+              <a class="nav-link active" href="#Analysis" onclick="toggleForm()" tabindex="-1" aria-disabled="true">NEW
+                PATIENT</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">SIGNUP/LOGIN</a>
@@ -209,37 +222,13 @@
           <p> a powerful tool designed to assist in the early detection of respiratory diseases. Our platform employs
             cutting-edge technology to analyze X-ray images and provide valuable insights into the probability of
             several respiratory conditions, including pneumonia, tuberculosis, lung cancer, and COVID-19.</p>
-          <form class="form-inline" style="padding-left: 10px;" action="/getdata" method="POST">
-            <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
-            <div class="row">
-              <div class="col-md-4">
+        </div>
 
-                <select class="form-control" name="patient_id" id="patient_id" required>
-                  <option value="123456789012">123456789012</option>
-                  <option value="098765432109">098765432109</option>
-                  <option value="245678901231">245678901231</option>
-                  <option value="102938475610">245678901231</option>
-                  <option value="342567819042">245678901231</option>
-
-                </select>
-                <!-- <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="patient_id"
-                  placeholder="Patient Id"> -->
-              </div>
-              <div class="col-md-4">
-                <button type="submit" class="btn btn-primary mb-2">Submit</button>
-              </div>
-          </form>
-          <div class="col-md-4">
-            <p> <a href="#form-data" style="color:black" onclick="toggleForm()">New Patient?</a></p>
-          </div>
+        <div class="col-md-6 text-center">
+          <img src="/static/images/Background.webp" class="img-fluid top-img"
+            style="width:500px;height:400px; padding-bottom:25px;">
         </div>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="/static/images/Background.webp" class="img-fluid top-img"
-          style="width:500px;height:400px; padding-bottom:25px;">
-      </div>
-    </div>
     </div>
     <img src="/static/images/wave1.png" class="bottom-img">
   </section>
@@ -384,9 +373,31 @@
   </section>
 
 
-  {% if img1 or img %}
   <section id="Analysis">
 
+    <div class="dropdrown">
+      <form class="form-inline" id="form-inline" style="padding-left: 40px;" action="/getdata" method="POST">
+        <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
+        <div class="row ">
+          <div class="col-md-4">
+            <select class="form-control" name="patient_id" id="patient_id" required>
+              <option value="123456789012">123456789012</option>
+              <option value="098765432109">098765432109</option>
+              <option value="245678901231">245678901231</option>
+              <option value="102938475610">102938475610</option>
+              <option value="342567819042">342567819042</option>
+
+            </select>
+            <!-- <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="patient_id"
+          placeholder="Patient Id"> -->
+          </div>
+          <div class="col-md-4 ">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+          </div>
+      </form>
+    </div>
+    {% if img1 or img %}
     <div class="row">
       <div class="card3">
         <div class="card-body6">Name: {{patient_name}}</div>
@@ -407,7 +418,7 @@
       <div class="col-md-5">
         <div class="row">
           <div class="card4">
-            
+
             <div class="card-body7"><b>Age:</b> <span id="age"></span></div>
           </div>
         </div>
