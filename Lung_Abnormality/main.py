@@ -70,8 +70,8 @@ class FileRequest(BaseModel):
 
 @app.post("/upload")
 async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
-                       patient_fame: Annotated[str,Form(...)],
-                       patient_lame: Annotated[str,Form(...)],
+                       patient_fname: Annotated[str,Form(...)],
+                       patient_lname: Annotated[str,Form(...)],
                        patient_dob: Annotated[str,Form(...)],
                        patient_email: Annotated[str,Form(...)],
                        Gender: Annotated[str,Form(...)],
@@ -118,12 +118,12 @@ async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
     covid19_prob = 0.0
     query =  f"""
     INSERT INTO `{project_id}.ImageData2.ImageDataTable` (
-        img_file, img_type, patient_id, patient_name, patient_dob, patient_gender,
+        img_file, img_type, patient_id, patient_fname,patient_lname, patient_dob, patient_gender,
         patient_email,patient_phno, date_of_test,
         pneumonia_prob, tuberculosis_prob, cancer_prob, covid19_prob
     )
     VALUES (
-        '{image_path}', '{image_type}', '{patient_id}', '{patient_name}',
+        '{image_path}', '{image_type}', '{patient_id}', '{patient_fname}', '{patient_lname}',
         DATE('{patient_dob}'), '{Gender}', '{patient_email}', '{patient_mobile}',
         DATE('{date_of_test}'),
         {pneumonia_prob}, {tuberculosis_prob}, {cancer_prob}, {covid19_prob}
