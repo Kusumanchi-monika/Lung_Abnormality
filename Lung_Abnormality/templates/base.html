@@ -1,3 +1,6 @@
+{% extends "Navbar.html" %}
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lung Disease Detection</title>
   <!-- Add your CSS file link here -->
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
   <link rel="stylesheet" href="/static/css/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,231 +23,166 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
 
-  <style>
-    .container1 {
-      max-width: 800px;
-      margin: 40px auto;
-      min-width: 5px;
-    }
-
-    .image-preview {
-      width: 300px;
-      height: 200px;
-      border: 1px solid #ddd;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .image-preview img {
-      max-width: 100%;
-      max-height: 100%;
-    }
-
-    .table-container1 {
-      max-width: 400px;
-      max-height: 300px;
-      padding-left: 60px;
-
-    }
-
-    .table-container2 {
-      max-width: 400px;
-      max-height: 300px;
-      padding-top: 40px;
-      padding-left: 100px;
-      align-items: center;
-
-    }
-
-    table {
-      width: 100%;
-      height: auto;
-      border-collapse: collapse;
-      background-color: #f8f8f8;
-      float: center;
-    }
-
-    th,
-    td {
-      padding: 12px 20px;
-      text-align: left;
-      border-bottom: 1px solid #dddddd;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
-
-
-    .image-box {
-      max-width: 400px;
-      height: 312px;
-      overflow: hidden;
-      padding-left: 40px;
-      padding-top: 1.5px;
-    }
-
-    .image-box img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .card3 {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      width: 75.5%;
-      size: 20px;
-      word-wrap: break-word;
-      border-radius: 0.25rem;
-      margin-left: 40px;
-    }
-
-    .card-body6 {
-      flex: 1 1 auto;
-      position: center;
-      text-align: center;
-      color: azure;
-      text-shadow: 0 1px 2px rgb(255, 247, 247);
-      background-color: rgb(51, 173, 235);
-      font-size: 30px;
-    }
-
-    .card4 {
-      /* position: relative; */
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      width: 90%;
-      size: 20px;
-      word-wrap: break-word;
-      border-radius: 0.25rem;
-    }
-
-    .card5 {
-      /* position: relative; */
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      width: 79%;
-      size: 20px;
-      word-wrap: break-word;
-      border-radius: 0.25rem;
-    }
-
-    .card-body7 {
-      flex: 1 1 auto;
-      /* position: center; */
-      text-align: left;
-      color: rgb(13, 14, 14);
-      text-shadow: 0 1px 2px rgb(120, 114, 114);
-      background-color: rgb(224, 240, 249);
-      font-size: 20px;
-      padding: 0.5rem 0.5rem;
-    }
-
-    .card-body8 {
-      flex: 1 1 auto;
-      /* position: center; */
-      text-align: left;
-      color: rgb(13, 14, 14);
-      text-shadow: 0 1px 2px rgb(120, 114, 114);
-      background-color: rgb(224, 240, 249);
-      font-size: 15px;
-      padding: 0.5rem 0.5rem;
-      font-weight: 400;
-
-    }
-
-    #Analysis {
-      padding-left: 200px;
-      padding-right: 0px;
-    }
-  </style>
 </head>
+<style>
+ 
+
+  .icon {
+    border: 1px solid rgb(5, 30, 22);
+    border-radius: 2px;
+    padding: 4px;
+    width: 90px;
+    height: 50%;
+
+  }
+
+  .div {
+    width: 100%;
+    height: 48px;
+    border: 1px solid rgb(231, 239, 247);
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-color: #d6d4e0
+  }
+
+  .div1 {
+    width: 100%;
+    height: 80px;
+    border: 3px solid rgb(241, 243, 244);
+    box-sizing: border-box;
+    background-color: #5b9aa0
+  }
+
+  p {
+    width: 100%;
+  }
+
+  div button {
+    float: right;
+    text-align: center;
+    font-size: 16px;
+    background-color: #016064;
+    color: white;
+    padding: 8px 28px;
+    border-radius: 12px;
+    font-family: "Poppins", sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    font-family: "Poppins", sans-serif;
+  }
+
+  button:hover {
+    opacity: 0.5;
+  }
+
+
+  .carousel-caption {
+    position: relative;
+    bottom: 10%;
+    left: 5%;
+    z-index: 20;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+  }
+
+  .column1 {
+    width: 50%;
+  }
+
+  .creative-paragraph {
+    background-color: #cee7f9;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(10, 9, 9, 0.1);
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #121111;
+    max-width: 550px;
+    max-height: 400px;
+    margin: 0 auto;
+    opacity: 1;
+  }
+
+  .creative-paragraph::first-letter {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ff7f50;
+    float: left;
+    line-height: 0.5;
+  }
+</style>
 
 <body>
-  <section id="nav-bar">
-    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: hsl(195, 94%, 88%);">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="/static/images/logo.jpeg" alt="logo"
-            style="height:50px;width:80px"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-
-          <i class="fa fa-bars" aria-hidden="true"></i>
-
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto" style="float:right">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">ABOUT US</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link disabled active" href="#" tabindex="-1" aria-disabled="true">FAQ'S</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">SIGNUP/LOGIN</a>
-            </li>
-          </ul>
-
-          <!-- <ul class="navbar-nav ms-auto" >
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">SIGNUP/LOGIN</a>
-            </li>
-      
-          </ul> -->
-        </div>
-      </div>
-    </nav>
-  </section>
-
   <section id="banner">
     <div class='container'>
       <div class="row">
-        <div class="col-md-6">
-          <h2>Swasa</h2>
-          <h4> Welcome to our website </h4>
-          <p> a powerful tool designed to assist in the early detection of respiratory diseases. Our platform employs
+        <div class="col-md-6 ">
+        <br>
+         <h1>SWASA</h1>
+         <br>
+         
+         <h4>Welcome to our website,</h4>
+          <p>a powerful tool designed to assist in the early detection of respiratory diseases. Our platform employs
             cutting-edge technology to analyze X-ray images and provide valuable insights into the probability of
             several respiratory conditions, including pneumonia, tuberculosis, lung cancer, and COVID-19.</p>
-          <form class="form-inline" style="padding-left: 10px;" action="/getdata" method="POST">
-            <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
-            <div class="row">
-              <div class="col-md-4">
+        </div>
 
-                <select class="form-control" name="patient_id" id="patient_id" required>
-                  <option value="123456789012">123456789012</option>
-                  <option value="098765432109">098765432109</option>
-                  <option value="245678901231">245678901231</option>
-                  <option value="102938475610">245678901231</option>
-                  <option value="342567819042">245678901231</option>
+        <div class="col-md-6">
+          <div style="width:600px;height:600px;" id="demo" class="carousel slide"
+            data-bs-ride="carousel">
 
-                </select>
-                <!-- <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="patient_id"
-                  placeholder="Patient Id"> -->
+            <!-- Indicators/dots -->
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+              <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+              <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+            </div>
+
+            <!-- The slideshow/carousel -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/static/images/Background.png" alt="Los Angeles" class="d-block"
+                  style="width:80%;opacity:1;height:400px">
+                <div class="carousel-caption" style="text-align:center;color:black;">
+                </div>
               </div>
-              <div class="col-md-4">
-                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+              <div class="carousel-item">
+                <img src="/static/images/curosel1.png" alt="Chicago" class="d-block"
+                  style="width:80% ;height:400px">
+                <div class="carousel-caption">
+
+                </div>
               </div>
-          </form>
-          <div class="col-md-4">
-            <p> <a href="#form-data" style="color:black" onclick="toggleForm()">New Patient?</a></p>
+              <div class="carousel-item">
+                <img src="/static/images/curosel2.png" alt="New York" class="d-block"
+                  style="width:100%;opacity:1;height:400px">
+                <div class="carousel-caption" style="text-align:center; padding-top: 2px;color:black">
+
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- Left and right controls/icons -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev" style="padding-left:900px;">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
         </div>
       </div>
-      <div class="col-md-6 text-center">
-        <img src="/static/images/Background.webp" class="img-fluid top-img"
-          style="width:500px;height:400px; padding-bottom:25px;">
-      </div>
-    </div>
     </div>
     <img src="/static/images/wave1.png" class="bottom-img">
+
   </section>
+
   <!-- Add your banner image and headline here -->
 
   <!-- <form class="form-inline" style="padding-left: 10px;" action="/getdata" method="POST">
@@ -260,268 +200,76 @@
   <div class="col-md-3">
     <p> <a href="#form-data" onclick="toggleForm()">New Patient?</a></p>
   </div>
-  </div> -->
-
-
-  <section id="form-data">
-    <div class="container1">
-
-      <div id="formContainer" style="display: none;">
-        <form action="/report" method="POST" enctype="multipart/form-data">
-          <br>
-          <div class="form-group">
-            <h2>Patient Data Form</h2>
-            <br>
-            <label for="name"> Name</label>
-            <input type="text" class="form-control" name="patient_name" id="name" placeholder="Enter patient name"
-              required>
-          </div>
-          <br>
-          <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" name="patient_email" placeholder="Enter patient email">
-          </div>
-          <br>
-          <div class="form-group">
-
-            <div class="row">
-              <div class="col-md-4">
-                <label for="phone">Mobile No:</label>
-                <input type="text" id="mobile" name="patient_mobile" placeholder="Enter Mobile Number" required>
-              </div>
-
-              <br>
-
-              <div class="col-md-4">
-                <label for="dob">Date of Birth</label>
-                <input type="text" id="dob-input" name="patient_dob" placeholder="Select Date of Birth" required>
-              </div>
-
-              <div class="col-md-4">
-                <label for="aadhar">Aadhar Number:</label>
-                <input type="text" id="aadhar" name="patient_id" placeholder="Enter Aadhar Number" required>
-              </div>
-            </div>
-            <br>
-
-            <div class="form-group">
-              <label for="gender">Gender</label>
-              <select class="form-control" name="Gender" id="gender" required>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <br>
-            <div class="form-group">
-              <label for="Image_type">Image Type</label>
-              <select class="form-control" name="image_type" id="image_type" required>
-                <option value="X-ray">X-ray</option>
-                <option value="CT">CT Scan</option>
-              </select>
-            </div>
-
-            <!-- <div class="form-group">
-                <label for="address">Address</label>
-                <textarea class="form-control" id="address" rows="3"  name="patient_Address" placeholder="Enter patient address"></textarea>
-              </div> -->
-
-            <br>
-            <div class="form-group">
-              <label for="xray">X-ray Image (Drag and drop here)</label>
-              <div class="image-preview" id="imagePreview">
-                <img src="" alt="Image Preview">
-              </div>
-              <input type="file" class="form-control-file" id="xray" name="image" accept="image/*"
-                onchange="previewImage(event)" required>
-            </div>
-            <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
-        </form>
-      </div>
-
-    </div>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-      flatpickr("#dob-input", {
-        dateFormat: "Y-m-d", // Adjust the format as per your requirement
-      });
-      function toggleForm() {
-
-        var formContainer = document.getElementById("formContainer");
-        var button = document.querySelector("button");
-
-        if (formContainer.style.display === "none") {
-          formContainer.style.display = "block";
-          button.innerText = "Close Form";
-        } else {
-          formContainer.style.display = "none";
-          button.innerText = "Open Form";
-        }
-      }
-
-      function submitForm() {
-        // Add your code here to handle form submission
-        // alert("Form submitted successfully!");
-        //  toggleForm();
-        removeTable();
-        // Hide the form after submission
-      }
-
-      function previewImage(event) {
-        var reader = new FileReader();
-        var imagePreview = document.getElementById("imagePreview");
-        var image = imagePreview.querySelector("img");
-
-        reader.onload = function () {
-          image.src = reader.result;
-        };
-
-        reader.readAsDataURL(event.target.files[0]);
-      }
-    </script>
-  </section>
-
-
-  {% if img1 or img %}
-  <section id="Analysis">
-
+  </div> --> 
+  <section id="card-section" class="mt-n5">
     <div class="row">
-      <div class="card3">
-        <div class="card-body6">Name: {{patient_name}}</div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-5">
-
-        <div class="image-box">
-          {% if img %}
-          <img src="{{ img }}">
-          {% else %}
-          <img src="data:image/{{ image_format }};base64,{{ img1 }}">
-          {% endif %}
-        </div>
-      </div>
-      <div class="col-md-5">
-        <div class="row">
-          <div class="card4">
+      <div class="col-md-4">
+        <div class="card shadow">
+          <div class="card-body">
+            <i class="fas fa-home icon-lg"></i>
             
-            <div class="card-body7"><b>Age:</b> <span id="age"></span></div>
+            <p class="card-text"></p>
           </div>
         </div>
-        <br>
-
-        <div class="row">
-          <div class="card4">
-            <div class="card-body7"><b>Gender: </b>{{Gender}}</div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow">
+          <div class="card-body">
+            <i class="fas fa-bacterium icon-lg"></i>
+            <h5 class="card-title">Lung Diseases</h5>
+            <p class="card-text">Learn about three common lung diseases: Pneumonia, Tuberculosis (TB), and Lung Cancer. Explore their causes, symptoms, treatments, and prevention strategies.</p>
           </div>
         </div>
-        <br>
-
-        <div class="row">
-          <div class="card4">
-            <div class="card-body7"><b>Date of Test:</b> {{ date }}</div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow">
+          <div class="card-body">
+            <i class="fas fa-link icon-lg"></i>
+            <h5 class="card-title">Useful Resources</h5>
+            <p class="card-text">Discover links to useful websites, articles, and resources related to lung diseases. Stay informed and access valuable information to support your lung health.</p>
           </div>
         </div>
-        <br>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card5">
-              <div class="card-body8" style="background-color:{% if result1 >50 %}
-                      #f55d6c;color: white
-                    {% elif result1 <20 %}
-                    #85ed79;
-                    {% else %}
-                    #f9fc90;
-                    {% endif %}
-                  ">
-                Pneumonia: {{result1}} %
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="card5">
-              <div class="card-body8" style="background-color:
-                      {% if result2 > 50 %}
-                      #f55d6c;color: white
-                      {% elif result2 < 20 %}
-                      #85ed79;
-                      {% else %}
-                      #f9fc90;
-                      {% endif %}
-                    ">
-                Tuberculosis: {{result2}} %
-              </div>
-            </div>
-          </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="team-section" class="mt-5">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="/static/images/monika.jpeg" alt="Team Member 1" class="rounded-circle" width="150">
+          <h5>Monika Kusumanchi</h5>
+          <p>Role/Position</p>
         </div>
-
-
-        <br>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card5">
-              <div class="card-body8" style="background-color:{% if result3 >50 %}
-                      #f55d6c;color: white
-                    {% elif result3 <20 %}
-                    #85ed79;
-                    {% else %}
-                    #f9fc90;
-                    {% endif %}
-                  ">
-                Cancer: {{result3}} %
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="card5">
-              <div class="card-body8" style="background-color:
-                      {% if result4 > 50 %}
-                      #f55d6c;color: white
-                      {% elif result4 < 20 %}
-                      #85ed79;
-                      {% else %}
-                      #f9fc90;
-                      {% endif %}
-                    ">
-                Covid19 : {{result4}} %
-              </div>
-            </div>
-          </div>
+      </div>
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="/static/images/team_member_2.jpg" alt="Team Member 2" class="rounded-circle" width="150">
+          <h5>Team Member 2</h5>
+          <p>Role/Position</p>
         </div>
-
-
-
+      </div>
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="/static/images/team_member_3.jpg" alt="Team Member 3" class="rounded-circle" width="150">
+          <h5>Team Member 3</h5>
+          <p>Role/Position</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="/static/images/team_member_4.jpg" alt="Team Member 4" class="rounded-circle" width="150">
+          <h5>Team Member 4</h5>
+          <p>Role/Position</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <script>
 
-    function removeTable() {
-      var table = document.getElementById("patientTable");
-      table.style.display = "none";
-    }
+  
 
-    function calculateAge(dob) {
-      var today = new Date();
-      var birthDate = new Date(dob);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var monthDiff = today.getMonth() - birthDate.getMonth();
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      return age;
-    }
-    var dob = '{{patient_dob}}';  // Replace with the actual DOB variable value
-    var ageElement = document.getElementById("age");
-    ageElement.innerText = calculateAge(dob);
-
-  </script>
-
+  
   <section id="information-section">
     <div class="row">
       <h2>Lung Diseases Information</h2>
@@ -529,25 +277,34 @@
       <p>The main 3 types of Lung Diseases are Pneumonia , Tuberculosis,Lung Cancer...</p>
     </div>
 
-  </section>
 
+  
+    <a href="#" class="scrollup" id="scroll-up">
+      <i class="uil uil-arrow-up scrollup__icon"></i>
+  </a>
 
   <div class="row">
     <footer>
+  
       <ul>
+
         <!-- Add your contact and social media links here -->
-        <li><a href="mailto:contact@example.com">Email</a></li>
-        <li><a href="tel:+123456789">Phone</a></li>
-        <li><a href="https://www.facebook.com/example">Facebook</a></li>
-        <li><a href="https://www.twitter.com/example">Twitter</a></li>
+        <li><a href="mailto:contact@example.com"><iconify-icon icon="fontisto:email"></iconify-icon></a></li>
+        <li><a href="tel:+123456789"><iconify-icon icon="solar:phone-outline"></iconify-icon></a></li>
+        <li><a href="https://www.facebook.com/example">                        
+          <i class="uil uil-facebook"></i></a></li>
+        <li><a href="https://www.twitter.com/example"><i class="uil uil-twitter-alt"></i></a></li>
       </ul>
       <p>&copy; 2023 Lung Disease Detection Website. All rights reserved.</p>
     </footer>
 
     <!-- Add your JavaScript file link here -->
     <script src="../static/script.js"></script>
-    {% endif %}
+
   </div>
+
+
+  {% endblock %}
 </body>
 
 </html>

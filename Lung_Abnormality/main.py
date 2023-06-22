@@ -38,7 +38,8 @@ class ImageData(BaseModel):
     img_file: str
     img_type: str
     patient_id: str
-    patient_name: str
+    patient_fname: str
+    patient_lname: str
     patient_dob: date
     patient_gender: str
     patient_email: str
@@ -54,12 +55,23 @@ templates = Jinja2Templates(directory="templates")
 async def dynamic_file(request: Request):
     return templates.TemplateResponse("base.html", {"request": request})
 
+@app.get("/PatientForm")
+async def Patient_form(request: Request):
+    return templates.TemplateResponse("PatientForm.html", {"request": request})
+
+@app.get("/report")
+async def report_fun(request: Request):
+    return templates.TemplateResponse("report.html", {"request": request})
+
+
+
 class FileRequest(BaseModel):
     file_path: str
 
-@app.post("/report")
+@app.post("/upload")
 async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
-                       patient_name: Annotated[str,Form(...)],
+                       patient_fname: Annotated[str,Form(...)],
+                       patient_lname: Annotated[str,Form(...)],
                        patient_dob: Annotated[str,Form(...)],
                        patient_email: Annotated[str,Form(...)],
                        Gender: Annotated[str,Form(...)],
@@ -82,10 +94,15 @@ async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
         bucket_name = 'lung_abn_raw'
         folder_name = 'CT-scan/'
     bucket = storage_client.get_bucket(bucket_name)
-    
+
+
+# Format the date as "Month dd, YYYY"
     date_test=datetime.now()
     date_of_test = date_test.date()
-    
+    date_object = datetime.strptime(str(date_of_test), "%Y-%m-%d")
+    date= date_object.strftime("%B %d, %Y")
+
+    patient_name = patient_fname + " " + patient_lname 
     filename = f"{patient_id}"
     #blob.upload_from_file(image.file, content_type=image.content_type)
     blob = bucket.blob(f"{folder_name}/{filename}")
@@ -101,12 +118,12 @@ async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
     covid19_prob = 0.0
     query =  f"""
     INSERT INTO `{project_id}.ImageData2.ImageDataTable` (
-        img_file, img_type, patient_id, patient_name, patient_dob, patient_gender,
+        img_file, img_type, patient_id, patient_fname,patient_lname, patient_dob, patient_gender,
         patient_email,patient_phno, date_of_test,
         pneumonia_prob, tuberculosis_prob, cancer_prob, covid19_prob
     )
     VALUES (
-        '{image_path}', '{image_type}', '{patient_id}', '{patient_name}',
+        '{image_path}', '{image_type}', '{patient_id}', '{patient_fname}', '{patient_lname}',
         DATE('{patient_dob}'), '{Gender}', '{patient_email}', '{patient_mobile}',
         DATE('{date_of_test}'),
         {pneumonia_prob}, {tuberculosis_prob}, {cancer_prob}, {covid19_prob}
@@ -135,11 +152,11 @@ async def report_file(request: Request,image:Annotated[UploadFile, File(...)],
         print(pred1,pred2,pred3,pred4)
 
     await asyncio.sleep(60)
-    return templates.TemplateResponse("base.html", {"request": request, "result1": pred1, "result2": pred2,
+    return templates.TemplateResponse("report.html", {"request": request, "result1": pred1, "result2": pred2,
                                                      "result3": pred3, "result4": pred4, "img1":encoded_img,
                                                      "patient_name": patient_name, "patient_dob": patient_dob,
                                                      "patient_email": patient_email, "Gender": Gender,
-                                                     "Uploaded_image": image_type,"date":str(date_of_test)})
+                                                     "Uploaded_image": image_type,"date":str(date)})
 
 
 @app.post("/ImageData/")
@@ -189,20 +206,26 @@ async def get_data(request: Request,patient_id:Annotated[str,Form(...)]):
    predi2=df.iloc[0]['tuberculosis_prob']
    predi4=df.iloc[0]['covid19_prob']
    predi3=df.iloc[0]['cancer_prob']
-   patient_name=df.iloc[0]['patient_name']
+   patient_fname=df.iloc[0]['patient_fname']
+   patient_lname=df.iloc[0]['patient_lname']
    patient_email=df.iloc[0]['patient_email']
    patient_dob=df.iloc[0]['patient_dob']
    Gender=df.iloc[0]['patient_gender']
    image_type=df.iloc[0]['img_type']
    date_of_test=df.iloc[0]['date_of_test']
+   date_object = datetime.strptime(str(date_of_test), "%Y-%m-%d")
+   date= date_object.strftime("%B %d, %Y")
+
    pred1=round(predi1*100,2)
    pred2=round(predi2*100,2)
    pred3=round(predi3*100,2)
    pred4=round(predi4*100,2)
+   patient_name=patient_fname + " " + patient_lname 
+   
 
  
 
-   return templates.TemplateResponse("base.html", {"request": request, "result1":pred1,"result2":pred2,"result3":pred3, "result4":pred4, "img":image_path, "patient_name":patient_name,"patient_dob":patient_dob,"patient_email":patient_email,"Gender":Gender,"Uploaded_image":image_type,"date":date_of_test})
+   return templates.TemplateResponse("report.html", {"request": request, "result1":pred1,"result2":pred2,"result3":pred3, "result4":pred4, "img":image_path, "patient_name":patient_name,"patient_dob":patient_dob,"patient_email":patient_email,"Gender":Gender,"Uploaded_image":image_type,"date":date})
    
    # df.head()
    #    return df.to_html()   
@@ -220,7 +243,7 @@ async def display_image():
     image_data = blob.download_as_bytes()
 
     # Return an HTML response with the image data embedded
-    return templates.TemplateResponse("base.html", {"request": request, "image_content": f'<img src="data:image/jpeg;base64,{image_data.decode()}" alt="Image">'})
+    return templates.TemplateResponse("report.html", {"request": request, "image_content": f'<img src="data:image/jpeg;base64,{image_data.decode()}" alt="Image">'})
     # return HTMLResponse(content=f'<img src="data:image/jpeg;base64,{image_data.decode()}" alt="Image">')               
                 
         
