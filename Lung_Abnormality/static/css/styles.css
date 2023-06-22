@@ -1,6 +1,9 @@
 /* styles.css */
 
 /* Global Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,400;1,400&family=Open+Sans:ital,wght@0,400;1,300;1,400&family=Roboto:wght@300;400;500&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 body {
     font-family: "Poppins", sans-serif;
@@ -81,8 +84,12 @@ body {
   
   /* Information Section */
   
- 
+ #Information Section
+ {
   
+ }
+  
+
   /* Footer */
   
   footer {
@@ -103,9 +110,11 @@ body {
   }
 
 .navbar{
-  background-image:linear-gradient(to right,#d3e6f8,#3295eb);
-
-  padding:0
+  background-image:linear-gradient(to right,#dae7f4,#59abf3);
+  /* font-family: 'Open Sans', sans-serif; */
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'Playfair Display', serif; 
+  padding:0;
 }
 .navbar-brand img
 {
@@ -115,16 +124,24 @@ body {
 .navbar .navbar-nav .nav-item a{
   padding:15px;
   float:right;
+  /* font-family: 'Open Sans', sans-serif; */
+  /* font-family: 'Roboto';sans-serif;  */
 }
 .navbar .navbar-nav li{
   padding:0 5px;
   float:right;
+  /* font-family: 'Open Sans', sans-serif; */
+  /* font-family: 'Roboto', sans-serif; */
 }
 .navbar .navbar-nav li a{
   color:#151515;
-  font-weight: 600;
+  font-weight: 800;
   float:right;
+  font-size: 22px;
   text-align: left;
+   /* font-family: 'Open Sans', sans-serif;  */
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'Playfair Display', serif; 
 }
 
 
@@ -148,7 +165,7 @@ body {
 
 #banner
 {
-  background-image:linear-gradient(to right,#d3e6f8,#3295eb);
+  background-image:linear-gradient(to right,#dae7f4,#59abf3);
   color:#121111;
   padding-top: 1%;
 }
@@ -393,3 +410,25 @@ th {
   padding-left: 40px;
 
 } 
+
+
+.first-letter {
+  font-size: 2.5em;
+  font-weight: bold;
+  color : #07528f;
+  /* color: #16636d;  */
+  float: left;
+  line-height : 0.4;
+}
+h1 {
+    font-size: 45px;
+    font-weight: bold;
+    font-family: ;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    font-family: 'Open Sans', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+}
+  
