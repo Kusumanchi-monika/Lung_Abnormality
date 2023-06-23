@@ -333,13 +333,14 @@ th {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  width: 90%;
   size: 20px;
   word-wrap: break-word;
   border-radius: 0.25rem;
   margin-left: 40px;
-  padding-top: 20px;
+  padding-top: 30px;
   padding-bottom: 15px;
+  padding-right:0px;
+  margin-right: 0px;
   
 }
 
@@ -358,7 +359,7 @@ th {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  width: 90%;
+  width: 800px;
   size: 20px;
   word-wrap: break-word;
   border-radius: 0.25rem;
@@ -369,10 +370,11 @@ th {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  width: 99%;
+  width: 230px;
   size: 20px;
   word-wrap: break-word;
   border-radius: 0.25rem;
+  padding-right: 40px;
 }
 
 .card-body7 {
@@ -413,10 +415,10 @@ th {
 
 .reportcard{
   box-shadow: 2px 6px 100px  rgb(103, 158, 192);
-  max-width:1000px; 
-  height:500px;
+  max-width:775px; 
+  height:480px;
   padding-left: 0px;
-  padding-right:0px:
+  padding-right:0px;
 }
 
 
