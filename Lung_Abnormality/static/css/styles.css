@@ -333,7 +333,7 @@ th {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  width: 50%;
+  width: 90%;
   size: 20px;
   word-wrap: break-word;
   border-radius: 0.25rem;
@@ -393,7 +393,7 @@ th {
   color: rgb(13, 14, 14);
   text-shadow: 0 1px 2px rgb(120, 114, 114);
   background-color: rgb(224, 240, 249);
-  font-size: 17px;
+  font-size: 16px;
   padding: 0.5rem 0.5rem;
   font-weight: 400;
 
@@ -410,6 +410,14 @@ th {
   padding-left: 40px;
 
 } 
+
+.reportcard{
+  box-shadow: 2px 6px 100px  rgb(103, 158, 192);
+  max-width:1000px; 
+  height:500px;
+  padding-left: 0px;
+  padding-right:0px:
+}
 
 
 .first-letter {
@@ -431,4 +439,3 @@ h1 {
     font-family: 'Open Sans', sans-serif;
   /* font-family: 'Roboto', sans-serif; */
 }
-  
